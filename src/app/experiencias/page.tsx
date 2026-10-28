@@ -70,50 +70,50 @@ export default function ExperienciasPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
       
-      {/* Page Header */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 bg-white border border-[#E7DECE] rounded-3xl p-6 sm:p-10 shadow-sm">
-        <div className="space-y-3 max-w-2xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 text-amber-900 border border-amber-300 text-xs font-bold">
-            <HeartHandshake className="w-3.5 h-3.5 text-amber-700" />
+      {/* Page Header - Clean Open Layout Without Giant Box */}
+      <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 pb-2 border-b border-slate-200/60">
+        <div className="space-y-2 max-w-2xl">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-200/80 text-xs font-semibold">
+            <HeartHandshake className="w-3.5 h-3.5 text-amber-600" />
             <span>Red Comunitaria y Solidaria</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-stone-900">
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
             Experiencias y Consejos Digitales
           </h1>
-          <p className="text-xs sm:text-sm text-stone-600 leading-relaxed font-medium">
+          <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
             Un espacio seguro y colaborativo donde personas migrantes, retornadas y sus familias comparten qué herramientas digitales les fueron útiles y qué precauciones tomar frente a riesgos y estafas.
           </p>
         </div>
 
         <button
           onClick={() => setIsModalOpen(true)}
-          className="flex items-center justify-center gap-2 px-6 py-3.5 bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-white font-bold text-sm rounded-xl shadow-md shadow-amber-600/20 hover:scale-105 transition-all shrink-0"
+          className="flex items-center justify-center gap-2 px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs sm:text-sm rounded-xl shadow-xs transition-all shrink-0"
         >
-          <PlusCircle className="w-5 h-5" />
+          <PlusCircle className="w-4 h-4" />
           <span>Compartir Mi Testimonio</span>
         </button>
       </div>
 
       {/* Ethical Safeguard Notice */}
-      <div className="p-4 bg-emerald-50 border border-emerald-300 rounded-2xl flex items-center gap-3 text-xs text-emerald-950 font-medium">
-        <ShieldCheck className="w-6 h-6 text-emerald-700 shrink-0" />
+      <div className="p-4 bg-emerald-50/80 border border-emerald-200/80 rounded-2xl flex items-center gap-3 text-xs text-emerald-900">
+        <ShieldCheck className="w-5 h-5 text-emerald-600 shrink-0" />
         <div>
-          <strong className="text-emerald-900">Garantía Ética de Anonimato:</strong> Todos los testimonios pasan por un filtro de minimización de datos para proteger la identidad, privacidad y seguridad de quienes participan, conforme a los principios de la ACM (2018).
+          <strong className="text-emerald-950 font-semibold">Garantía Ética de Anonimato:</strong> Todos los testimonios pasan por un filtro de minimización de datos para proteger la identidad, privacidad y seguridad de quienes participan, conforme a los principios de la ACM (2018).
         </div>
       </div>
 
       {/* Filters and Search Bar */}
-      <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4 bg-white border border-[#E7DECE] p-4 rounded-2xl shadow-xs">
+      <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4 bg-white border border-slate-200/80 p-4 rounded-2xl shadow-xs">
         
         {/* Search Input */}
         <div className="relative flex-1">
-          <Search className="absolute left-3.5 top-3 w-4 h-4 text-stone-400" />
+          <Search className="absolute left-3.5 top-3 w-4 h-4 text-slate-400" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Buscar por palabra clave, aplicación (WhatsApp, Canva, Google Drive) o consejo..."
-            className="w-full pl-10 pr-4 py-2.5 bg-[#FAF8F5] border border-[#E7DECE] rounded-xl text-xs sm:text-sm text-stone-900 placeholder-stone-400 focus:ring-2 focus:ring-amber-500"
+            className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-colors"
           />
         </div>
 
@@ -129,10 +129,10 @@ export default function ExperienciasPage() {
             <button
               key={tab.key}
               onClick={() => setSelectedStage(tab.key)}
-              className={`px-3 py-2 rounded-xl text-xs font-bold transition-all shrink-0 ${
+              className={`px-3 py-2 rounded-xl text-xs font-semibold transition-all shrink-0 ${
                 selectedStage === tab.key
-                  ? "bg-amber-600 text-white shadow-xs"
-                  : "bg-[#F5F0E8] text-stone-700 hover:bg-[#EFE8DC] hover:text-stone-900"
+                  ? "bg-slate-900 text-white shadow-xs"
+                  : "bg-slate-100 text-slate-600 hover:bg-slate-200/70 hover:text-slate-900"
               }`}
             >
               {tab.label}
@@ -144,10 +144,10 @@ export default function ExperienciasPage() {
 
       {/* Experience Cards Grid */}
       {filteredExperiences.length === 0 ? (
-        <div className="p-12 text-center bg-white border border-[#E7DECE] rounded-3xl space-y-3">
-          <AlertCircle className="w-12 h-12 text-amber-600 mx-auto" />
-          <h3 className="text-lg font-bold text-stone-900">No se encontraron testimonios</h3>
-          <p className="text-xs text-stone-600">
+        <div className="p-12 text-center bg-white border border-slate-200 rounded-3xl space-y-3">
+          <AlertCircle className="w-10 h-10 text-amber-500 mx-auto" />
+          <h3 className="text-base font-bold text-slate-900">No se encontraron testimonios</h3>
+          <p className="text-xs text-slate-500 font-normal">
             Intenta cambiar el término de búsqueda o selecciona otra categoría de filtro.
           </p>
         </div>

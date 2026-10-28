@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Visor de Diagramas - Conectando Caminos</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #0f172a;
+      --border: #e2e8f0;
+      --primary: #0284c7;
+      --primary-dark: #0369a1;
+    }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+    header {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      color: white;
+      padding: 1.5rem 2rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .header-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+    h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .subtitle {
+      margin-top: 0.25rem;
+      color: #94a3b8;
+      font-size: 0.9rem;
+    }
+    .btn-group {
+      display: flex;
+      gap: 0.75rem;
+    }
+    .btn {
+      background: #38bdf8;
+      color: #0f172a;
+      font-weight: 600;
+      padding: 0.6rem 1.2rem;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      font-size: 0.875rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn:hover {
+      background: #7dd3fc;
+      transform: translateY(-1px);
+    }
+    .btn-secondary {
+      background: #334155;
+      color: #f8fafc;
+    }
+    .btn-secondary:hover {
+      background: #475569;
+    }
+    .tabs {
+      max-width: 1400px;
+      margin: 1.5rem auto 0;
+      padding: 0 1.5rem;
+      display: flex;
+      gap: 0.5rem;
+      border-bottom: 2px solid var(--border);
+    }
+    .tab-btn {
+      padding: 0.75rem 1.25rem;
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #64748b;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .tab-btn.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+    .tab-btn:hover:not(.active) {
+      color: #334155;
+    }
+    main {
+      max-width: 1400px;
+      margin: 1.5rem auto 4rem;
+      padding: 0 1.5rem;
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      margin-bottom: 1.5rem;
+      overflow-x: auto;
+    }
+    .card-header {
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .card-title {
+      margin: 0;
+      font-size: 1.25rem;
+      color: #1e293b;
+    }
+    .instructions-box {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 0.75rem;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+      color: #1e40af;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-content">
+      <div>
+        <h1>🧭 Conectando Caminos &bull; Arquitectura & Diagramas</h1>
+        <div class="subtitle">Alfabetización Digital Inclusiva y Marco Ético (ENRO & Universidad Rafael Landívar)</div>
+      </div>
+      <div class="btn-group">
+        <a href="https://excalidraw.com" target="_blank" class="btn">
+          🎨 Abrir en Excalidraw.com
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('erd')">📊 Modelo ER PostgreSQL</button>
+    <button class="tab-btn" onclick="switchTab('arch')">🏗️ Arquitectura de Software</button>
+    <button class="tab-btn" onclick="switchTab('ethics')">🛡️ Flujo Ético ACM 2018</button>
+    <button class="tab-btn" onclick="switchTab('excalidraw')">📂 Archivo Excalidraw</button>
+  </div>
+
+  <main>
+    <!-- TAB 1: ERD -->
+    <div id="tab-erd" class="tab-content active">
+      <div class="instructions-box">
+        <strong>💡 Información del Modelo Relacional:</strong> Diseñado con tipos nativos de PostgreSQL, claves UUID v4, relaciones con eliminación en cascada/set null controladas y diseño ético con minimización de datos (PII).
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">Diagrama Entidad-Relación de la Base de Datos</h2>
+        </div>
+        <div class="mermaid">
+erDiagram
+    ROLES ||--o{ USERS : "posee"
+    USERS ||--o{ MODERATION_LOGS : "ejecuta"
+    USERS ||--o{ EXPERIENCES : "crea (opcional)"
+    USERS ||--o{ USER_COURSE_PROGRESS : "registra"
+    USERS ||--o{ RESUMES : "guarda"
+
+    EXPERIENCES ||--o{ EXPERIENCE_TOOLS : "utiliza"
+    EXPERIENCES ||--o{ EXPERIENCE_VOTES : "recibe"
+
+    COURSE_CATEGORIES ||--o{ COURSES : "clasifica"
+    COURSES ||--o{ COURSE_TAGS : "etiqueta"
+    COURSES ||--o{ USER_COURSE_PROGRESS : "avanza en"
+
+    TEST_QUESTIONS ||--o{ TEST_OPTIONS : "contiene"
+    TEST_EVALUATIONS ||--o{ TEST_EVALUATION_ANSWERS : "contiene"
+    TEST_QUESTIONS ||--o{ TEST_EVALUATION_ANSWERS : "evaluada"
+    TEST_OPTIONS ||--o{ TEST_EVALUATION_ANSWERS : "seleccionada"
+
+    PHISHING_SCENARIOS ||--o{ PHISHING_RED_FLAGS : "posee"
+    PHISHING_SCENARIOS ||--o{ PHISHING_ATTEMPTS : "evaluado en"
+
+    DIRECTORY_ITEMS ||--o{ DIRECTORY_SERVICES : "ofrece"
+
+    ROLES {
+        int id PK
+        varchar name
+        varchar description
+    }
+    USERS {
+        uuid id PK
+        int role_id FK
+        varchar email UK
+        varchar password_hash
+        varchar full_name
+        boolean is_active
+        timestamp created_at
+    }
+    EXPERIENCES {
+        uuid id PK
+        uuid user_id FK "nullable"
+        varchar title
+        varchar stage
+        varchar author_alias
+        varchar department_or_region
+        text story
+        text key_advice
+        text risks_avoided
+        boolean verified_ethics
+        boolean consent_given
+        varchar status
+        int useful_votes_count
+    }
+    COURSES {
+        uuid id PK
+        int category_id FK
+        varchar title
+        varchar platform
+        text url
+        varchar duration
+        varchar level
+        boolean is_free
+        text description
+        text why_it_matters
+    }
+    TEST_QUESTIONS {
+        int id PK
+        varchar category
+        text question_text
+        int question_order
+        boolean is_active
+    }
+    TEST_EVALUATIONS {
+        uuid id PK
+        varchar student_name
+        varchar test_type
+        int score
+        int total_questions
+        varchar certificate_code UK
+        timestamp completed_at
+    }
+    PHISHING_SCENARIOS {
+        uuid id PK
+        varchar channel_type
+        varchar sender
+        text message_content
+        boolean is_scam
+        text explanation
+        text safe_action
+    }
+    DIRECTORY_ITEMS {
+        uuid id PK
+        varchar name
+        varchar org_type
+        text description
+        varchar phone
+        varchar emergency_phone
+        text address
+        varchar department_or_region
+        decimal latitude
+        decimal longitude
+        text website_url
+        boolean is_official
+    }
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: ARQUITECTURA -->
+    <div id="tab-arch" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">Arquitectura Fullstack en 3 Capas</h2>
+        </div>
+        <div class="mermaid">
+flowchart TD
+    subgraph CAPA1["🖥️ CAPA 1: PRESENTACIÓN Y ACCESIBILIDAD UNIVERSAL (Next.js 15 & React 19)"]
+        UI1["Selector de Rutas de Migrantes"]
+        UI2["Barra de Accesibilidad (Escala Tipográfica A/A+/A++, Alto Contraste)"]
+        UI3["Creador de CV Móvil & Botón SOS de Emergencia"]
+        UI4["Simulador de Phishing & Muro Comunitario de Consejos"]
+    end
+
+    subgraph CAPA2["🛡️ CAPA 2: LÓGICA DE NEGOCIO & MIDDLEWARE ÉTICO (API Routes & Server Actions)"]
+        API1["Filtro Ético de Datos Sensibles PII (DPI, Cuentas Bancarias)"]
+        API2["Control de Consentimiento Voluntario (ACM 2018)"]
+        API3["Hash Criptográfico Anónimo SHA-256 para Votaciones"]
+        API4["Generador de Evaluaciones & Certificados Pedagógicos"]
+    end
+
+    subgraph CAPA3["🗄️ CAPA 3: PERSISTENCIA Y MOTOR RELACIONAL (PostgreSQL)"]
+        DB1[("users, roles, moderation_logs")]
+        DB2[("experiences, experience_tools, experience_votes")]
+        DB3[("courses, course_categories, test_evaluations")]
+        DB4[("directory_items, phishing_scenarios, resumes")]
+    end
+
+    CAPA1 -->|HTTP Requests / JSON| CAPA2
+    CAPA2 -->|Consultas SQL / Connection Pool / UUIDs| CAPA3
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: ÉTICA -->
+    <div id="tab-ethics" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">Flujo de Control Ético y Moderación (ACM 2018)</h2>
+        </div>
+        <div class="mermaid">
+flowchart TD
+    A["✍️ 1. Usuario Redacta Experiencia\n(Alias voluntario + Consejo)"] --> B{"¿Acepta Consentimiento\nÉtico Informado?"}
+    
+    B -- NO --> C["❌ Bloqueo Preventivo\n(Requiere consentimiento voluntario)"]
+    B -- SÍ --> D{"¿DPI, tarjeta o datos\nsensibles detectados?"}
+    
+    D -- SÍ (Riesgo PII) --> E["⚠️ Alerta Preventiva\n(Se solicita retirar número sensible)"]
+    D -- NO (Limpio) --> F["🧑‍🏫 4. Moderación Pedagógica\n(Docentes/Estudiantes ENRO & URL)"]
+    
+    F --> G["🛡️ Registro en Moderation_Logs"]
+    G --> H["🌍 5. Publicación en Muro Comunitario\n(Votación anónima vía SHA-256)"]
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 4: EXCALIDRAW INSTRUCTIONS -->
+    <div id="tab-excalidraw" class="tab-content">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="card-title">Cómo abrir el archivo generado en Excalidraw</h2>
+        </div>
+        <div style="line-height: 1.6; font-size: 1rem;">
+          <p>He guardado el archivo del lienzo completo en tu proyecto en:</p>
+          <pre style="background: #f1f5f9; padding: 0.75rem; border-radius: 0.5rem; font-weight: bold;">proyecto_etica/diagramas_sistema.excalidraw</pre>
+          
+          <h3>Opciones para visualizarlo y editarlo:</h3>
+          <ol>
+            <li><strong>Opción 1: En el navegador (Recomendada y rápida)</strong>
+              <ul>
+                <li>Ingresa a <a href="https://excalidraw.com" target="_blank">https://excalidraw.com</a>.</li>
+                <li>Haz clic en el icono de menú (arriba a la izquierda) &gt; <strong>Abrir</strong> (Open), y selecciona el archivo <code>diagramas_sistema.excalidraw</code>.</li>
+                <li>¡O simplemente arrastra y suelta el archivo directamente sobre la ventana de Excalidraw!</li>
+              </ul>
+            </li>
+            <li style="margin-top: 0.75rem;"><strong>Opción 2: Extensión en tu IDE</strong>
+              <ul>
+                <li>Instala la extensión <strong>Excalidraw</strong> de VS Code.</li>
+                <li>Haz clic derecho sobre <code>diagramas_sistema.excalidraw</code> y ábrelo con el editor visual.</li>
+              </ul>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    mermaid.initialize({ startOnLoad: true, theme: 'default' });
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+      event.target.classList.add('active');
+      document.getElementById('tab-' + tabId).classList.add('active');
+    }
+  </script>
+</body>
+</html>

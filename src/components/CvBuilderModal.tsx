@@ -69,33 +69,33 @@ ${education || "• Nivel Medio / Bachillerato o Diversificado\n• Cursos de Ca
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-900/60 backdrop-blur-xs animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/50 backdrop-blur-xs animate-in fade-in duration-200">
       <div 
-        className="relative w-full max-w-4xl bg-[#FAF8F5] border border-[#E7DECE] rounded-3xl shadow-2xl p-6 sm:p-8 max-h-[92vh] overflow-y-auto text-stone-900"
+        className="relative w-full max-w-4xl bg-white border border-slate-200/90 rounded-3xl shadow-2xl p-6 sm:p-8 max-h-[92vh] overflow-y-auto text-slate-900"
         role="dialog"
         aria-modal="true"
         aria-labelledby="cv-builder-title"
       >
         {/* Header */}
-        <div className="flex items-start justify-between border-b border-[#E7DECE] pb-4">
+        <div className="flex items-start justify-between border-b border-slate-100 pb-4">
           <div className="flex items-center gap-3">
-            <div className="p-2.5 bg-emerald-100 border border-emerald-300 rounded-2xl">
-              <Briefcase className="w-6 h-6 text-emerald-800" />
+            <div className="p-2.5 bg-emerald-50 border border-emerald-200 rounded-2xl">
+              <Briefcase className="w-6 h-6 text-emerald-700" />
             </div>
             <div>
-              <h2 id="cv-builder-title" className="text-xl sm:text-2xl font-bold text-stone-900">
+              <h2 id="cv-builder-title" className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
                 Generador Rápido de CV Digital
               </h2>
-              <p className="text-xs text-stone-600 font-medium">
+              <p className="text-xs text-slate-500 font-normal mt-0.5">
                 Estructura tu hoja de vida profesional para postularte por WhatsApp, correo o portales de empleo.
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-2 text-stone-500 hover:text-stone-900 hover:bg-[#EFE8DC] rounded-xl"
+            className="p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-xl transition-colors"
           >
-            <X className="w-6 h-6" />
+            <X className="w-5 h-5" />
           </button>
         </div>
 
@@ -103,144 +103,144 @@ ${education || "• Nivel Medio / Bachillerato o Diversificado\n• Cursos de Ca
           
           {/* Form Side */}
           <div className="space-y-4">
-            <h3 className="text-sm font-bold text-amber-900 uppercase tracking-wider flex items-center gap-1.5">
+            <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
               <Sparkles className="w-4 h-4 text-amber-600" />
               1. Completa tus datos principales
             </h3>
 
             <div>
-              <label className="block text-xs font-bold text-stone-700 mb-1">Nombre Completo</label>
+              <label className="block text-xs font-semibold text-slate-700 mb-1">Nombre Completo</label>
               <input
                 type="text"
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
                 placeholder="Ej. Juan Carlos López Morales"
-                className="w-full px-3 py-2 bg-white border border-[#E7DECE] rounded-xl text-xs text-stone-900 focus:ring-2 focus:ring-amber-500"
+                className="w-full px-3 py-2 bg-slate-50/70 border border-slate-200 rounded-xl text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition-all"
               />
             </div>
 
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-bold text-stone-700 mb-1">Oficio o Puesto</label>
+                <label className="block text-xs font-semibold text-slate-700 mb-1">Oficio o Puesto</label>
                 <input
                   type="text"
                   value={profession}
                   onChange={(e) => setProfession(e.target.value)}
                   placeholder="Ej. Electricista / Asistente / Ventas"
-                  className="w-full px-3 py-2 bg-white border border-[#E7DECE] rounded-xl text-xs text-stone-900 focus:ring-2 focus:ring-amber-500"
+                  className="w-full px-3 py-2 bg-slate-50/70 border border-slate-200 rounded-xl text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition-all"
                 />
               </div>
               <div>
-                <label className="block text-xs font-bold text-stone-700 mb-1">Ubicación</label>
+                <label className="block text-xs font-semibold text-slate-700 mb-1">Ubicación</label>
                 <input
                   type="text"
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
                   placeholder="Ej. Quetzaltenango"
-                  className="w-full px-3 py-2 bg-white border border-[#E7DECE] rounded-xl text-xs text-stone-900 focus:ring-2 focus:ring-amber-500"
+                  className="w-full px-3 py-2 bg-slate-50/70 border border-slate-200 rounded-xl text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition-all"
                 />
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-xs font-bold text-stone-700 mb-1">Teléfono</label>
+                <label className="block text-xs font-semibold text-slate-700 mb-1">Teléfono</label>
                 <input
                   type="text"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   placeholder="(+502) 5555-0000"
-                  className="w-full px-3 py-2 bg-white border border-[#E7DECE] rounded-xl text-xs text-stone-900 focus:ring-2 focus:ring-amber-500"
+                  className="w-full px-3 py-2 bg-slate-50/70 border border-slate-200 rounded-xl text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition-all"
                 />
               </div>
               <div>
-                <label className="block text-xs font-bold text-stone-700 mb-1">Correo Electrónico</label>
+                <label className="block text-xs font-semibold text-slate-700 mb-1">Correo Electrónico</label>
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="ejemplo@gmail.com"
-                  className="w-full px-3 py-2 bg-white border border-[#E7DECE] rounded-xl text-xs text-stone-900 focus:ring-2 focus:ring-amber-500"
+                  className="w-full px-3 py-2 bg-slate-50/70 border border-slate-200 rounded-xl text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition-all"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-stone-700 mb-1">Breve Perfil Personal</label>
+              <label className="block text-xs font-semibold text-slate-700 mb-1">Breve Perfil Personal</label>
               <textarea
                 rows={2}
                 value={summary}
                 onChange={(e) => setSummary(e.target.value)}
                 placeholder="Ej. Persona responsable con 4 años de experiencia en mantenimiento y atención a clientes..."
-                className="w-full px-3 py-2 bg-white border border-[#E7DECE] rounded-xl text-xs text-stone-900 focus:ring-2 focus:ring-amber-500"
+                className="w-full px-3 py-2 bg-slate-50/70 border border-slate-200 rounded-xl text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition-all"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-stone-700 mb-1">Habilidades (Separadas por comas)</label>
+              <label className="block text-xs font-semibold text-slate-700 mb-1">Habilidades (Separadas por comas)</label>
               <input
                 type="text"
                 value={skills}
                 onChange={(e) => setSkills(e.target.value)}
                 placeholder="Ej. Soldadura, Uso de smartphone, Trabajo bajo presión, Honestidad"
-                className="w-full px-3 py-2 bg-white border border-[#E7DECE] rounded-xl text-xs text-stone-900 focus:ring-2 focus:ring-amber-500"
+                className="w-full px-3 py-2 bg-slate-50/70 border border-slate-200 rounded-xl text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition-all"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-stone-700 mb-1">Experiencia Laboral Previa</label>
+              <label className="block text-xs font-semibold text-slate-700 mb-1">Experiencia Laboral Previa</label>
               <textarea
                 rows={2}
                 value={experiences}
                 onChange={(e) => setExperiences(e.target.value)}
                 placeholder="Ej. 2024-2025: Operador en taller de carpintería. Corte, pulido y entrega de pedidos."
-                className="w-full px-3 py-2 bg-white border border-[#E7DECE] rounded-xl text-xs text-stone-900 focus:ring-2 focus:ring-amber-500"
+                className="w-full px-3 py-2 bg-slate-50/70 border border-slate-200 rounded-xl text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition-all"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-stone-700 mb-1">Educación / Certificados</label>
+              <label className="block text-xs font-semibold text-slate-700 mb-1">Educación / Certificados</label>
               <input
                 type="text"
                 value={education}
                 onChange={(e) => setEducation(e.target.value)}
                 placeholder="Ej. Diploma en Alfabetización Digital (ENRO/URL), Nivel Medio"
-                className="w-full px-3 py-2 bg-white border border-[#E7DECE] rounded-xl text-xs text-stone-900 focus:ring-2 focus:ring-amber-500"
+                className="w-full px-3 py-2 bg-slate-50/70 border border-slate-200 rounded-xl text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900/10 focus:border-slate-400 focus:bg-white transition-all"
               />
             </div>
 
           </div>
 
           {/* Live Preview Side */}
-          <div className="flex flex-col justify-between bg-white border border-[#E7DECE] rounded-2xl p-5 shadow-sm">
+          <div className="flex flex-col justify-between bg-slate-50/70 border border-slate-200 rounded-2xl p-5">
             <div>
-              <div className="flex items-center justify-between pb-3 mb-3 border-b border-[#F0EAE1]">
+              <div className="flex items-center justify-between pb-3 mb-3 border-b border-slate-200/80">
                 <span className="text-xs font-bold uppercase tracking-wider text-emerald-800">
                   Vista Previa del CV Digital
                 </span>
-                <span className="text-[10px] text-stone-500 font-medium">Listo para copiar o enviar</span>
+                <span className="text-[10px] text-slate-500 font-normal">Listo para copiar o enviar</span>
               </div>
 
-              <pre className="text-xs font-mono text-stone-800 whitespace-pre-wrap bg-[#FAF8F5] p-4 rounded-xl border border-[#E7DECE] max-h-[380px] overflow-y-auto">
+              <pre className="text-xs font-mono text-slate-800 whitespace-pre-wrap bg-white p-4 rounded-xl border border-slate-200 max-h-[380px] overflow-y-auto shadow-2xs">
                 {generatedCvText}
               </pre>
             </div>
 
             {/* Actions */}
-            <div className="pt-4 border-t border-[#F0EAE1] flex flex-wrap items-center gap-3">
+            <div className="pt-4 border-t border-slate-200/80 flex flex-wrap items-center gap-3">
               <button
                 onClick={handleCopy}
-                className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs rounded-xl shadow-xs transition-transform hover:scale-105"
+                className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs rounded-xl shadow-xs transition-colors"
               >
-                {copied ? <Check className="w-4 h-4 text-white" /> : <Copy className="w-4 h-4" />}
+                {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
                 <span>{copied ? "¡Copiado al Portapapeles!" : "Copiar Texto"}</span>
               </button>
 
               <button
                 onClick={handleDownloadTxt}
-                className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-[#F0EAE1] hover:bg-[#E7DECE] text-stone-800 font-bold text-xs rounded-xl border border-[#E7DECE] transition-colors"
+                className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-white hover:bg-slate-100 text-slate-700 font-semibold text-xs rounded-xl border border-slate-200 transition-colors"
               >
-                <Download className="w-4 h-4 text-amber-700" />
+                <Download className="w-4 h-4 text-slate-600" />
                 <span>Descargar (.txt)</span>
               </button>
             </div>

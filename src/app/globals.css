@@ -1,10 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --background: #faf8f5;
-  --foreground: #292524;
-  --primary: #c2410c;
-  --accent: #d97706;
+  --background: #fbfbfd;
+  --foreground: #0f172a;
+  --card: #ffffff;
+  --primary: #0f172a;
+  --primary-hover: #1e293b;
+  --accent: #475569;
+  --border-subtle: #e2e8f0;
 }
 
 @theme inline {
@@ -19,29 +22,30 @@ html {
 }
 
 body {
-  background-color: #faf8f5;
-  color: #292524;
+  background-color: #fbfbfd;
+  color: #1e293b;
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Custom warm scrollbar */
+/* Modern clean scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f5f0e8;
+  background: #f8fafc;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #d6cbbe;
-  border-radius: 4px;
+  background: #cbd5e1;
+  border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #b5a494;
+  background: #94a3b8;
 }
 
 /* High Contrast Mode for Accessibility */
@@ -59,5 +63,5 @@ body.high-contrast-mode footer,
 body.high-contrast-mode button,
 body.high-contrast-mode input,
 body.high-contrast-mode textarea {
-  border-color: #c2410c !important;
+  border-color: #0284c7 !important;
 }

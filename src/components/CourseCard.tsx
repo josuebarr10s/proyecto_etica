@@ -26,27 +26,27 @@ interface CourseCardProps {
 const CATEGORY_STYLES: Record<CourseCategory, { label: string; badgeBg: string; text: string; border: string }> = {
   alfabetizacion_basica: {
     label: "Alfabetización Básica",
-    badgeBg: "bg-amber-100/90",
-    text: "text-amber-950 font-bold",
-    border: "border-amber-300"
+    badgeBg: "bg-amber-50",
+    text: "text-amber-700 font-medium",
+    border: "border-amber-200/80"
   },
   seguridad_antifraude: {
     label: "Seguridad y Antifraude",
-    badgeBg: "bg-orange-100/90",
-    text: "text-orange-950 font-bold",
-    border: "border-orange-300"
+    badgeBg: "bg-rose-50",
+    text: "text-rose-700 font-medium",
+    border: "border-rose-200/80"
   },
   tramites_oficiales: {
     label: "Trámites y Fuentes Oficiales",
-    badgeBg: "bg-stone-200/90",
-    text: "text-stone-900 font-bold",
-    border: "border-stone-300"
+    badgeBg: "bg-slate-100",
+    text: "text-slate-700 font-medium",
+    border: "border-slate-200"
   },
   empleabilidad_cv: {
     label: "Empleabilidad y CV Digital",
-    badgeBg: "bg-emerald-100/90",
-    text: "text-emerald-950 font-bold",
-    border: "border-emerald-300"
+    badgeBg: "bg-emerald-50",
+    text: "text-emerald-700 font-medium",
+    border: "border-emerald-200/80"
   }
 };
 
@@ -56,36 +56,36 @@ export default function CourseCard({ course }: CourseCardProps) {
   const renderIcon = () => {
     switch (course.iconName) {
       case "Smartphone":
-        return <Smartphone className="w-5 h-5 text-amber-700" />;
+        return <Smartphone className="w-5 h-5 text-amber-600" />;
       case "ShieldCheck":
-        return <ShieldCheck className="w-5 h-5 text-orange-700" />;
+        return <ShieldCheck className="w-5 h-5 text-blue-600" />;
       case "Lock":
-        return <Lock className="w-5 h-5 text-red-700" />;
+        return <Lock className="w-5 h-5 text-rose-600" />;
       case "FileCheck":
-        return <FileCheck className="w-5 h-5 text-stone-700" />;
+        return <FileCheck className="w-5 h-5 text-slate-600" />;
       case "Globe":
-        return <Globe className="w-5 h-5 text-amber-800" />;
+        return <Globe className="w-5 h-5 text-amber-600" />;
       case "Briefcase":
-        return <Briefcase className="w-5 h-5 text-emerald-700" />;
+        return <Briefcase className="w-5 h-5 text-emerald-600" />;
       case "UserCheck":
-        return <UserCheck className="w-5 h-5 text-emerald-800" />;
+        return <UserCheck className="w-5 h-5 text-emerald-600" />;
       case "MessageCircle":
         return <MessageCircle className="w-5 h-5 text-amber-600" />;
       default:
-        return <Sparkles className="w-5 h-5 text-amber-700" />;
+        return <Sparkles className="w-5 h-5 text-amber-600" />;
     }
   };
 
   return (
-    <div className="bg-white border border-[#E7DECE] hover:border-amber-400 rounded-2xl p-6 transition-all duration-300 shadow-sm hover:shadow-md flex flex-col justify-between group">
+    <div className="bg-white border border-slate-200/80 hover:border-amber-300 rounded-2xl p-6 transition-all duration-200 shadow-2xs hover:shadow-md flex flex-col justify-between group">
       
       <div>
         {/* Header: Category Badge & Free Badge */}
         <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-          <span className={`px-3 py-1 text-xs rounded-full border ${catStyle.badgeBg} ${catStyle.text} ${catStyle.border}`}>
+          <span className={`px-2.5 py-0.5 text-xs rounded-full border ${catStyle.badgeBg} ${catStyle.text} ${catStyle.border}`}>
             {catStyle.label}
           </span>
-          <span className="px-2.5 py-0.5 text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-full flex items-center gap-1">
+          <span className="px-2.5 py-0.5 text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-200/80 rounded-full flex items-center gap-1">
             <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
             100% Gratuito
           </span>
@@ -93,51 +93,46 @@ export default function CourseCard({ course }: CourseCardProps) {
 
         {/* Icon & Title */}
         <div className="flex items-start gap-3 mb-2">
-          <div className="p-2 bg-[#F5F0E8] border border-[#E7DECE] rounded-xl shrink-0 group-hover:scale-110 transition-transform">
+          <div className="p-2.5 bg-slate-50 border border-slate-200/80 rounded-xl shrink-0 group-hover:scale-105 transition-transform">
             {renderIcon()}
           </div>
-          <h3 className="text-lg font-bold text-stone-900 group-hover:text-amber-800 transition-colors leading-snug">
+          <h3 className="text-base sm:text-lg font-bold text-slate-900 group-hover:text-amber-600 transition-colors leading-snug">
             {course.title}
           </h3>
         </div>
 
         {/* Platform & Duration */}
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-stone-500 mb-4 pb-3 border-b border-[#F0EAE1]">
-          <span className="font-bold text-stone-800 flex items-center gap-1">
-            <Award className="w-3.5 h-3.5 text-amber-700" />
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-500 mb-4 pb-3 border-b border-slate-100">
+          <span className="font-semibold text-slate-800 flex items-center gap-1">
+            <Award className="w-3.5 h-3.5 text-amber-600" />
             {course.platform}
           </span>
-          <span className="flex items-center gap-1 font-medium text-stone-600">
+          <span className="flex items-center gap-1 font-normal text-slate-500">
             <Clock className="w-3.5 h-3.5" />
             {course.duration}
           </span>
-          <span className="px-2 py-0.5 bg-[#F5F0E8] rounded text-stone-700 font-semibold">
+          <span className="px-2 py-0.5 bg-slate-100 rounded text-slate-600 font-medium">
             Nivel: {course.level}
           </span>
         </div>
 
         {/* Description */}
-        <p className="text-sm text-stone-700 leading-relaxed mb-4">
+        <p className="text-xs sm:text-sm text-slate-600 leading-relaxed mb-3 font-normal">
           {course.description}
         </p>
 
-        {/* Why it matters Box */}
-        <div className="p-3.5 bg-[#FAF6F0] border border-[#EBE3D5] rounded-xl mb-4">
-          <div className="flex items-center gap-1.5 text-amber-900 font-bold text-xs mb-1">
-            <Lightbulb className="w-4 h-4 text-amber-700" />
-            <span>¿Por qué es útil para la comunidad?</span>
-          </div>
-          <p className="text-xs text-stone-700 leading-relaxed font-medium">
-            {course.whyItMatters}
-          </p>
+        {/* Why it matters - Clean inline callout without heavy box frame */}
+        <div className="flex items-start gap-2 text-xs text-slate-500 mb-4 bg-slate-50/60 p-2.5 rounded-lg border-l-2 border-amber-500">
+          <Lightbulb className="w-3.5 h-3.5 text-amber-600 shrink-0 mt-0.5" />
+          <span className="leading-relaxed">{course.whyItMatters}</span>
         </div>
 
         {/* Tags */}
-        <div className="flex flex-wrap gap-1.5 mb-5">
+        <div className="flex flex-wrap gap-1.5 mb-4">
           {course.tags.map((tag, idx) => (
             <span
               key={idx}
-              className="px-2.5 py-0.5 bg-[#F5F0E8] text-stone-600 border border-[#E7DECE] rounded-lg text-xs font-medium"
+              className="px-2 py-0.5 bg-slate-100 text-slate-500 rounded text-[11px] font-medium"
             >
               #{tag}
             </span>
@@ -146,18 +141,18 @@ export default function CourseCard({ course }: CourseCardProps) {
       </div>
 
       {/* Action: Open Course Link */}
-      <div className="pt-3 border-t border-[#F0EAE1] flex items-center justify-between">
-        <span className="text-xs text-stone-500">
-          Sugerido por: <strong className="text-stone-800">{course.recommendedBy}</strong>
+      <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
+        <span className="text-xs text-slate-400">
+          Por: <strong className="text-slate-700 font-medium">{course.recommendedBy}</strong>
         </span>
 
         <a
           href={course.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 text-white font-bold text-xs rounded-xl shadow-sm hover:scale-105 transition-all"
+          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-slate-900 hover:bg-slate-800 text-white font-medium text-xs rounded-lg transition-colors"
         >
-          <span>Acceder al Curso</span>
+          <span>Acceder</span>
           <ExternalLink className="w-3.5 h-3.5" />
         </a>
       </div>

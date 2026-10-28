@@ -43,7 +43,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es" className={`${inter.variable} ${outfit.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col bg-[#FAF8F5] text-stone-800 font-sans selection:bg-amber-200 selection:text-stone-900">
+      <body className="min-h-full flex flex-col bg-[#FBFBFD] text-slate-800 font-sans selection:bg-amber-100 selection:text-amber-950">
         <AccessibilityBar />
         <Navbar />
         <main className="flex-1 w-full">{children}</main>

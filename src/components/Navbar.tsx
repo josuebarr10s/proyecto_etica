@@ -34,21 +34,21 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="sticky top-0 z-40 bg-[#FAF8F5]/95 backdrop-blur-md border-b border-[#E7DECE] text-stone-900 transition-all shadow-xs">
+      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200/80 text-slate-900 transition-all">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
+          <div className="flex items-center justify-between h-18">
             
             {/* Logo y Branding */}
-            <Link href="/" className="flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-amber-500 rounded-lg p-1">
-              <div className="w-11 h-11 rounded-xl bg-gradient-to-tr from-amber-600 via-orange-600 to-amber-500 flex items-center justify-center shadow-md shadow-amber-600/20 group-hover:scale-105 transition-transform">
-                <Compass className="w-6 h-6 text-white" />
+            <Link href="/" className="flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-slate-400 rounded-lg p-1">
+              <div className="w-9 h-9 rounded-xl bg-slate-900 flex items-center justify-center shadow-2xs text-white transition-transform">
+                <Compass className="w-5 h-5 text-white" />
               </div>
               <div>
-                <span className="text-xl font-bold tracking-tight text-stone-900 block group-hover:text-amber-700 transition-colors">
+                <span className="text-base font-bold tracking-tight text-slate-900 block group-hover:text-slate-700 transition-colors">
                   Conectando Caminos
                 </span>
-                <span className="text-xs text-amber-800 font-semibold tracking-wide flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 inline-block" />
+                <span className="text-[11px] text-slate-500 font-normal tracking-normal flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-slate-400 inline-block" />
                   Alfabetización Digital Inclusiva
                 </span>
               </div>
@@ -63,28 +63,28 @@ export default function Navbar() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-semibold transition-all ${
+                    className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all ${
                       isActive
-                        ? "bg-[#EFE8DC] text-amber-900 border border-[#DACFBE] shadow-xs"
-                        : "text-stone-600 hover:text-stone-900 hover:bg-[#F2ECE2]"
+                        ? "bg-slate-100 text-slate-900 border border-slate-200/80 shadow-2xs"
+                        : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/60"
                     }`}
                   >
-                    <Icon className={`w-4 h-4 ${isActive ? "text-amber-700" : "text-stone-400"}`} />
+                    <Icon className={`w-3.5 h-3.5 ${isActive ? "text-slate-900" : "text-slate-400"}`} />
                     {link.label}
                   </Link>
                 );
               })}
             </nav>
 
-            {/* Right Action: Botón SOS de Emergencia */}
+            {/* Right Action: Botón SOS de Emergencia - Desaturated & Discreet */}
             <div className="hidden sm:flex items-center gap-3">
               <button
                 onClick={() => setSosModalOpen(true)}
-                className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-red-600 to-amber-700 hover:from-red-500 hover:to-amber-600 text-white font-bold text-xs uppercase tracking-wider rounded-xl shadow-md shadow-red-600/20 hover:scale-105 transition-all focus:outline-none focus:ring-2 focus:ring-amber-500"
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-rose-50/70 hover:bg-rose-100/70 text-rose-700 border border-rose-200/80 font-medium text-xs rounded-xl transition-colors shadow-2xs"
                 aria-label="Botón de emergencia y números de auxilio"
               >
-                <AlertTriangle className="w-4 h-4 animate-bounce" />
-                <span>Auxilio / SOS</span>
+                <AlertTriangle className="w-3.5 h-3.5 text-rose-600" />
+                <span>Líneas SOS</span>
               </button>
             </div>
 
@@ -92,18 +92,18 @@ export default function Navbar() {
             <div className="flex xl:hidden items-center gap-2">
               <button
                 onClick={() => setSosModalOpen(true)}
-                className="p-2 bg-red-600 text-white rounded-lg sm:hidden flex items-center justify-center shadow"
+                className="p-2 bg-rose-50 text-rose-700 border border-rose-200 rounded-lg sm:hidden flex items-center justify-center shadow-2xs"
                 aria-label="Auxilio SOS rápido"
               >
-                <AlertTriangle className="w-5 h-5" />
+                <AlertTriangle className="w-4 h-4" />
               </button>
 
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-2.5 rounded-xl bg-[#F0EAE1] text-stone-700 hover:text-stone-900 hover:bg-[#E7DECE] focus:outline-none focus:ring-2 focus:ring-amber-500"
+                className="p-2 rounded-xl bg-slate-100 text-slate-700 hover:text-slate-900 hover:bg-slate-200/70 focus:outline-none focus:ring-2 focus:ring-amber-500"
                 aria-label="Abrir menú de navegación"
               >
-                {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </button>
             </div>
           </div>
@@ -111,8 +111,8 @@ export default function Navbar() {
 
         {/* Mobile menu dropdown */}
         {mobileMenuOpen && (
-          <div className="xl:hidden bg-[#FAF8F5] border-b border-[#E7DECE] px-4 pt-2 pb-6 space-y-2 animate-in slide-in-from-top-4 duration-200 shadow-xl">
-            <div className="text-xs font-bold uppercase tracking-wider text-stone-500 px-3 pt-2">
+          <div className="xl:hidden bg-white/98 border-b border-slate-200 px-4 pt-3 pb-6 space-y-2 animate-in slide-in-from-top-4 duration-200 shadow-lg">
+            <div className="text-xs font-semibold uppercase tracking-wider text-slate-400 px-3 pt-1">
               Módulos del Proyecto
             </div>
             {navLinks.map((link) => {
@@ -123,13 +123,13 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center gap-3 px-3 py-3 rounded-xl text-base font-semibold transition-all ${
+                  className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${
                     isActive
-                      ? "bg-[#EFE8DC] text-amber-900 border border-[#DACFBE]"
-                      : "text-stone-700 hover:bg-[#F2ECE2] hover:text-stone-900"
+                      ? "bg-slate-100 text-slate-900 font-semibold border border-slate-200"
+                      : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                   }`}
                 >
-                  <Icon className={`w-5 h-5 ${isActive ? "text-amber-700" : "text-stone-400"}`} />
+                  <Icon className={`w-4 h-4 ${isActive ? "text-amber-600" : "text-slate-400"}`} />
                   {link.label}
                 </Link>
               );
@@ -141,10 +141,10 @@ export default function Navbar() {
                   setMobileMenuOpen(false);
                   setSosModalOpen(true);
                 }}
-                className="w-full flex items-center justify-center gap-2 py-3 bg-gradient-to-r from-red-600 to-amber-700 hover:from-red-500 hover:to-amber-600 text-white font-bold rounded-xl shadow-md"
+                className="w-full flex items-center justify-center gap-2 py-2.5 bg-rose-600 hover:bg-rose-700 text-white font-semibold text-sm rounded-xl shadow-xs"
               >
-                <AlertTriangle className="w-5 h-5" />
-                Botón SOS de Emergencia y Contactos Clave
+                <AlertTriangle className="w-4 h-4" />
+                Botón SOS de Emergencia y Contactos
               </button>
             </div>
           </div>

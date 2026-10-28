@@ -25,20 +25,20 @@ export default function AccessibilityBar() {
   }, [fontSize, highContrast]);
 
   return (
-    <div className="bg-[#F4EFE6] border-b border-[#E7DECE] text-stone-700 py-1.5 px-4 text-xs">
+    <div className="bg-slate-50/95 border-b border-slate-200/60 text-slate-600 py-1.5 px-4 text-xs">
       <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
-        <div className="flex items-center gap-2 font-medium text-stone-800">
-          <Sparkles className="w-3.5 h-3.5 text-amber-700" />
-          <span>Accesibilidad e Inclusión Digital para Todos</span>
+        <div className="flex items-center gap-2 font-medium text-slate-700">
+          <Sparkles className="w-3.5 h-3.5 text-slate-500" />
+          <span>Accesibilidad e Inclusión Digital</span>
         </div>
         
         <div className="flex items-center gap-3">
-          <span className="text-stone-600 hidden sm:inline font-medium">Tamaño de letra:</span>
-          <div className="flex items-center bg-[#FAF8F5] rounded-lg p-0.5 border border-[#E7DECE] shadow-xs">
+          <span className="text-slate-500 hidden sm:inline font-medium">Tamaño de letra:</span>
+          <div className="flex items-center bg-white rounded-lg p-0.5 border border-slate-200 shadow-xs">
             <button
               onClick={() => setFontSize("normal")}
-              className={`px-2 py-0.5 rounded font-bold transition-all ${
-                fontSize === "normal" ? "bg-amber-600 text-white shadow-xs" : "text-stone-700 hover:text-stone-900"
+              className={`px-2 py-0.5 rounded text-xs font-semibold transition-all ${
+                fontSize === "normal" ? "bg-slate-900 text-white shadow-xs" : "text-slate-600 hover:text-slate-900"
               }`}
               title="Tamaño normal"
               aria-label="Tamaño de texto normal"
@@ -47,8 +47,8 @@ export default function AccessibilityBar() {
             </button>
             <button
               onClick={() => setFontSize("large")}
-              className={`px-2 py-0.5 rounded font-bold transition-all ${
-                fontSize === "large" ? "bg-amber-600 text-white shadow-xs" : "text-stone-700 hover:text-stone-900"
+              className={`px-2 py-0.5 rounded text-xs font-semibold transition-all ${
+                fontSize === "large" ? "bg-slate-900 text-white shadow-xs" : "text-slate-600 hover:text-slate-900"
               }`}
               title="Texto grande"
               aria-label="Tamaño de texto grande"
@@ -57,8 +57,8 @@ export default function AccessibilityBar() {
             </button>
             <button
               onClick={() => setFontSize("xlarge")}
-              className={`px-2 py-0.5 rounded font-bold transition-all ${
-                fontSize === "xlarge" ? "bg-amber-600 text-white shadow-xs" : "text-stone-700 hover:text-stone-900"
+              className={`px-2 py-0.5 rounded text-xs font-semibold transition-all ${
+                fontSize === "xlarge" ? "bg-slate-900 text-white shadow-xs" : "text-slate-600 hover:text-slate-900"
               }`}
               title="Texto extra grande"
               aria-label="Tamaño de texto extra grande"
@@ -69,14 +69,14 @@ export default function AccessibilityBar() {
 
           <button
             onClick={() => setHighContrast(!highContrast)}
-            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg border text-xs font-semibold transition-all ${
+            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg border text-xs font-medium transition-all ${
               highContrast
-                ? "bg-stone-900 text-white border-stone-900 shadow"
-                : "bg-[#FAF8F5] text-stone-700 border-[#E7DECE] hover:bg-[#F0EAE1] hover:text-stone-900 shadow-xs"
+                ? "bg-slate-900 text-white border-slate-900 shadow-xs"
+                : "bg-white text-slate-600 border-slate-200 hover:bg-slate-100/70 hover:text-slate-900 shadow-xs"
             }`}
             aria-label="Alternar modo de alto contraste"
           >
-            <Eye className="w-3.5 h-3.5" />
+            <Eye className="w-3.5 h-3.5 text-slate-500" />
             <span>{highContrast ? "Alto Contraste: ON" : "Alto Contraste"}</span>
           </button>
         </div>

@@ -96,25 +96,25 @@ export default function PrePostTest() {
   const currentScore = calculateScore();
 
   return (
-    <div className="bg-white border border-[#E7DECE] rounded-3xl p-6 sm:p-10 shadow-sm">
+    <div className="bg-white border border-slate-200/80 rounded-3xl p-6 sm:p-10 shadow-xs">
       
       {/* Selector Pre / Post Test */}
-      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#F0EAE1] pb-6 mb-8">
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 pb-6 mb-8">
         <div>
-          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-800 mb-1">
-            <GraduationCap className="w-4 h-4 text-amber-700" />
+          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-amber-600 mb-1">
+            <GraduationCap className="w-4 h-4 text-amber-600" />
             <span>Módulo de Evaluación Pedagógica ENRO</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-stone-900">
+          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
             Evaluación de Competencias y Ciberseguridad
           </h2>
-          <p className="text-xs sm:text-sm text-stone-600 font-medium">
+          <p className="text-xs sm:text-sm text-slate-500 font-normal">
             Medición de conocimientos antes y después de la capacitación de alfabetización digital.
           </p>
         </div>
 
         {/* Tab Toggle */}
-        <div className="flex items-center bg-[#F4EFE6] p-1.5 rounded-2xl border border-[#E0D5C3]">
+        <div className="flex items-center bg-slate-100 p-1 rounded-2xl border border-slate-200">
           <button
             onClick={() => {
               if (testType !== "pre") {
@@ -122,10 +122,10 @@ export default function PrePostTest() {
                 handleRestart();
               }
             }}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+            className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
               testType === "pre"
-                ? "bg-amber-600 text-white shadow-xs"
-                : "text-stone-700 hover:text-stone-900"
+                ? "bg-slate-900 text-white shadow-xs"
+                : "text-slate-600 hover:text-slate-900"
             }`}
           >
             1. Diagnóstico Inicial (Pre-Test)
@@ -137,10 +137,10 @@ export default function PrePostTest() {
                 handleRestart();
               }
             }}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+            className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
               testType === "post"
                 ? "bg-emerald-700 text-white shadow-xs"
-                : "text-stone-700 hover:text-stone-900"
+                : "text-slate-600 hover:text-slate-900"
             }`}
           >
             2. Evaluación Final (Post-Test)
@@ -150,9 +150,9 @@ export default function PrePostTest() {
 
       {/* Student Name Input */}
       {!isSubmitted && (
-        <div className="mb-6 p-4 bg-[#FAF6F0] border border-[#EBE3D5] rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="mb-6 p-4 bg-slate-50 border border-slate-200 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="w-full sm:w-auto">
-            <label className="block text-xs font-bold uppercase text-stone-700 mb-1">
+            <label className="block text-xs font-semibold uppercase text-slate-600 mb-1">
               Nombre del Estudiante o Participante (Para tu constancia):
             </label>
             <input
@@ -160,11 +160,11 @@ export default function PrePostTest() {
               value={studentName}
               onChange={(e) => setStudentName(e.target.value)}
               placeholder="Ej. Kevin / María / Estudiante ENRO"
-              className="w-full sm:w-80 px-3 py-1.5 bg-white border border-[#E7DECE] rounded-xl text-xs text-stone-900 font-medium focus:ring-2 focus:ring-amber-500"
+              className="w-full sm:w-80 px-3 py-1.5 bg-white border border-slate-200 rounded-xl text-xs text-slate-900 font-medium focus:bg-white focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-colors"
             />
           </div>
-          <div className="text-xs text-stone-600 font-bold">
-            Pregunta <strong className="text-stone-900">{currentQuestionIndex + 1}</strong> de <strong className="text-stone-900">{TEST_QUESTIONS.length}</strong>
+          <div className="text-xs text-slate-500 font-semibold">
+            Pregunta <strong className="text-slate-900">{currentQuestionIndex + 1}</strong> de <strong className="text-slate-900">{TEST_QUESTIONS.length}</strong>
           </div>
         </div>
       )}
@@ -173,11 +173,11 @@ export default function PrePostTest() {
       {!isSubmitted ? (
         <div className="space-y-6">
           {/* Question Box */}
-          <div className="p-6 bg-[#FAF8F5] border border-[#E7DECE] rounded-2xl">
-            <span className="text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 bg-amber-100 text-amber-900 border border-amber-300 rounded-full inline-block mb-3">
+          <div className="p-6 bg-slate-50/70 border border-slate-200 rounded-2xl">
+            <span className="text-xs font-semibold uppercase tracking-wider px-2.5 py-0.5 bg-amber-50 text-amber-700 border border-amber-200/80 rounded-full inline-block mb-3">
               Pregunta #{question.id}
             </span>
-            <h3 className="text-base sm:text-lg font-bold text-stone-900 leading-relaxed">
+            <h3 className="text-base sm:text-lg font-bold text-slate-900 leading-relaxed">
               {question.question}
             </h3>
           </div>
@@ -190,14 +190,14 @@ export default function PrePostTest() {
                 <button
                   key={opt.id}
                   onClick={() => handleSelectOption(opt.id)}
-                  className={`w-full text-left p-4 rounded-2xl border transition-all text-xs sm:text-sm font-semibold flex items-start gap-3 ${
+                  className={`w-full text-left p-4 rounded-2xl border transition-all text-xs sm:text-sm font-medium flex items-start gap-3 ${
                     isSelected
-                      ? "bg-amber-50 border-amber-500 text-amber-950 shadow-xs ring-1 ring-amber-400"
-                      : "bg-white border-[#E7DECE] text-stone-700 hover:bg-[#FAF8F5] hover:text-stone-900"
+                      ? "bg-amber-50/70 border-amber-500 text-amber-950 shadow-2xs ring-1 ring-amber-400"
+                      : "bg-white border-slate-200/80 text-slate-700 hover:bg-slate-50 hover:text-slate-900"
                   }`}
                 >
                   <div className={`w-5 h-5 rounded-full border shrink-0 flex items-center justify-center mt-0.5 ${
-                    isSelected ? "border-amber-600 bg-amber-600 text-white font-bold" : "border-stone-400"
+                    isSelected ? "border-amber-600 bg-amber-600 text-white font-bold" : "border-slate-300"
                   }`}>
                     {isSelected ? "✓" : ""}
                   </div>
@@ -208,11 +208,11 @@ export default function PrePostTest() {
           </div>
 
           {/* Navigation & Submit Bar */}
-          <div className="flex items-center justify-between pt-6 border-t border-[#F0EAE1]">
+          <div className="flex items-center justify-between pt-6 border-t border-slate-100">
             <button
               onClick={handlePrev}
               disabled={currentQuestionIndex === 0}
-              className="px-4 py-2 bg-[#F0EAE1] hover:bg-[#E7DECE] disabled:opacity-40 text-stone-700 rounded-xl text-xs font-bold"
+              className="px-4 py-2 bg-slate-100 hover:bg-slate-200 disabled:opacity-40 text-slate-700 rounded-xl text-xs font-semibold transition-colors"
             >
               Anterior
             </button>
@@ -221,7 +221,7 @@ export default function PrePostTest() {
               <button
                 onClick={handleNext}
                 disabled={!selectedAnswers[question.id]}
-                className="inline-flex items-center gap-2 px-5 py-2.5 bg-amber-600 hover:bg-amber-500 disabled:opacity-40 text-white font-bold rounded-xl text-xs shadow-xs"
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-slate-900 hover:bg-slate-800 disabled:opacity-40 text-white font-semibold rounded-xl text-xs shadow-xs transition-all"
               >
                 <span>Siguiente</span>
                 <ArrowRight className="w-4 h-4" />
@@ -230,7 +230,7 @@ export default function PrePostTest() {
               <button
                 onClick={handleSubmit}
                 disabled={Object.keys(selectedAnswers).length < TEST_QUESTIONS.length}
-                className="inline-flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-500 hover:to-teal-600 disabled:opacity-40 text-white font-bold rounded-xl text-xs shadow-md transition-all"
+                className="inline-flex items-center gap-2 px-6 py-2.5 bg-emerald-700 hover:bg-emerald-600 disabled:opacity-40 text-white font-semibold rounded-xl text-xs shadow-xs transition-all"
               >
                 <FileCheck className="w-4 h-4" />
                 <span>Finalizar y Ver Resultados</span>
@@ -243,36 +243,36 @@ export default function PrePostTest() {
         <div className="space-y-8 animate-in zoom-in-95 duration-200">
           
           {/* Score Header */}
-          <div className="p-8 bg-gradient-to-br from-[#FAF8F5] to-[#F2ECE2] border border-[#E7DECE] rounded-3xl text-center space-y-4 shadow-xs">
-            <div className="w-16 h-16 bg-gradient-to-tr from-amber-600 to-emerald-600 rounded-2xl flex items-center justify-center mx-auto shadow-md">
-              <Award className="w-9 h-9 text-white" />
+          <div className="p-8 bg-gradient-to-br from-slate-50 to-white border border-slate-200 rounded-3xl text-center space-y-4 shadow-xs">
+            <div className="w-16 h-16 bg-gradient-to-tr from-amber-600 to-emerald-600 rounded-2xl flex items-center justify-center mx-auto shadow-sm">
+              <Award className="w-8 h-8 text-white" />
             </div>
             
-            <h3 className="text-2xl font-bold text-stone-900">
+            <h3 className="text-2xl font-bold text-slate-900">
               {testType === "pre" ? "Resultado del Diagnóstico Inicial" : "¡Felicidades por completar la Evaluación Final!"}
             </h3>
             
-            <div className="inline-block p-4 bg-white border border-amber-300 rounded-2xl shadow-xs">
-              <span className="text-xs text-stone-500 uppercase tracking-widest font-bold block">Puntaje Obtenido</span>
-              <span className="text-4xl font-extrabold text-amber-700">
+            <div className="inline-block p-4 bg-white border border-slate-200 rounded-2xl shadow-xs">
+              <span className="text-xs text-slate-400 uppercase tracking-widest font-semibold block">Puntaje Obtenido</span>
+              <span className="text-4xl font-extrabold text-amber-600">
                 {currentScore} / {TEST_QUESTIONS.length}
               </span>
-              <span className="text-xs text-stone-600 font-medium block mt-1">
+              <span className="text-xs text-slate-500 font-medium block mt-1">
                 ({(currentScore / TEST_QUESTIONS.length) * 100}% de aciertos)
               </span>
             </div>
 
             {/* Comparison Metrics if both tests are taken */}
             {preScore !== null && postScore !== null && (
-              <div className="p-4 bg-emerald-50 border border-emerald-300 rounded-2xl max-w-md mx-auto text-left space-y-2">
-                <div className="flex items-center gap-2 text-emerald-900 font-bold text-sm">
-                  <TrendingUp className="w-4 h-4 text-emerald-700" />
+              <div className="p-4 bg-emerald-50/80 border border-emerald-200 rounded-2xl max-w-md mx-auto text-left space-y-2">
+                <div className="flex items-center gap-2 text-emerald-950 font-semibold text-sm">
+                  <TrendingUp className="w-4 h-4 text-emerald-600" />
                   <span>Progreso de Aprendizaje Comprobado (ENRO):</span>
                 </div>
-                <div className="flex items-center justify-between text-xs text-stone-700 font-medium">
-                  <span>Diagnóstico Inicial (Pre): <strong>{preScore}/5</strong></span>
-                  <span>Evaluación Final (Post): <strong>{postScore}/5</strong></span>
-                  <span className="text-emerald-800 font-bold">
+                <div className="flex items-center justify-between text-xs text-slate-600 font-medium">
+                  <span>Diagnóstico Inicial (Pre): <strong className="text-slate-900">{preScore}/5</strong></span>
+                  <span>Evaluación Final (Post): <strong className="text-slate-900">{postScore}/5</strong></span>
+                  <span className="text-emerald-700 font-bold">
                     +{Math.max(0, postScore - preScore)} pts de mejora
                   </span>
                 </div>
@@ -281,21 +281,21 @@ export default function PrePostTest() {
           </div>
 
           {/* Digital Certificate of Participation */}
-          <div className="p-8 bg-[#FAF6F0] border-2 border-amber-300 rounded-3xl shadow-sm relative overflow-hidden text-center space-y-4">
-            <div className="text-xs font-bold uppercase tracking-widest text-amber-800">
+          <div className="p-8 bg-amber-50/30 border border-amber-200/80 rounded-3xl shadow-xs relative overflow-hidden text-center space-y-4">
+            <div className="text-xs font-semibold uppercase tracking-widest text-amber-700">
               Universidad Rafael Landívar &bull; ENRO Quetzaltenango
             </div>
-            <h4 className="text-xl sm:text-2xl font-serif font-bold text-stone-900">
+            <h4 className="text-xl sm:text-2xl font-serif font-bold text-slate-900">
               Constancia Digital de Alfabetización y Ciberseguridad
             </h4>
-            <p className="text-xs text-stone-600 font-medium">Se hace constar que:</p>
-            <div className="text-2xl font-bold text-amber-800 tracking-wide underline underline-offset-8 decoration-amber-400">
+            <p className="text-xs text-slate-500 font-normal">Se hace constar que:</p>
+            <div className="text-2xl font-bold text-amber-700 tracking-wide underline underline-offset-8 decoration-amber-300">
               {studentName.trim() || "Estudiante Participante"}
             </div>
-            <p className="text-xs text-stone-700 max-w-xl mx-auto leading-relaxed font-medium">
-              Ha completado exitosamente los módulos formativos sobre navegación segura, identificación de fuentes oficiales, prevención de fraudes y protección de datos familiares en el marco del proyecto <strong>Conectando Caminos</strong>.
+            <p className="text-xs text-slate-600 max-w-xl mx-auto leading-relaxed">
+              Ha completado exitosamente los módulos formativos sobre navegación segura, identificación de fuentes oficiales, prevención de fraudes y protección de datos familiares en el marco del proyecto <strong className="text-slate-900">Conectando Caminos</strong>.
             </p>
-            <div className="pt-4 flex flex-wrap items-center justify-center gap-6 text-[11px] text-stone-500 border-t border-[#E7DECE] font-semibold">
+            <div className="pt-4 flex flex-wrap items-center justify-center gap-6 text-[11px] text-slate-400 border-t border-amber-100 font-medium">
               <span>Fecha: {new Date().toLocaleDateString("es-GT")}</span>
               <span>Lugar: Quetzaltenango, Guatemala</span>
               <span>Validación: Código Ético ACM 2018</span>
@@ -304,8 +304,8 @@ export default function PrePostTest() {
 
           {/* Detailed Question Review */}
           <div className="space-y-4">
-            <h4 className="text-base font-bold text-stone-900 flex items-center gap-2">
-              <FileCheck className="w-5 h-5 text-amber-700" />
+            <h4 className="text-base font-bold text-slate-900 flex items-center gap-2">
+              <FileCheck className="w-5 h-5 text-amber-600" />
               <span>Revisión Detallada de Preguntas y Respuestas:</span>
             </h4>
 
@@ -316,24 +316,24 @@ export default function PrePostTest() {
               const isCorrect = selectedOption?.isCorrect;
 
               return (
-                <div key={q.id} className="p-5 bg-white border border-[#E7DECE] rounded-2xl space-y-2 text-xs">
+                <div key={q.id} className="p-5 bg-white border border-slate-200/80 rounded-2xl space-y-2 text-xs">
                   <div className="flex items-start justify-between gap-3">
-                    <p className="font-bold text-stone-900">{q.id}. {q.question}</p>
+                    <p className="font-semibold text-slate-900">{q.id}. {q.question}</p>
                     {isCorrect ? (
-                      <span className="flex items-center gap-1 text-emerald-800 font-bold shrink-0">
+                      <span className="flex items-center gap-1 text-emerald-700 font-semibold shrink-0">
                         <CheckCircle2 className="w-4 h-4 text-emerald-600" /> Correcta
                       </span>
                     ) : (
-                      <span className="flex items-center gap-1 text-red-800 font-bold shrink-0">
-                        <XCircle className="w-4 h-4 text-red-600" /> A Mejorar
+                      <span className="flex items-center gap-1 text-rose-700 font-semibold shrink-0">
+                        <XCircle className="w-4 h-4 text-rose-600" /> A Mejorar
                       </span>
                     )}
                   </div>
-                  <p className="text-stone-600 font-medium">
-                    <strong>Tu respuesta:</strong> {selectedOption?.text || "No respondida"}
+                  <p className="text-slate-600">
+                    <strong className="text-slate-800">Tu respuesta:</strong> {selectedOption?.text || "No respondida"}
                   </p>
-                  <p className="text-stone-800 bg-[#FAF8F5] p-3 rounded-xl border border-[#E7DECE]">
-                    <strong className="text-amber-800">Explicación:</strong> {correctOption?.explanation}
+                  <p className="text-slate-700 bg-slate-50 p-3 rounded-xl border border-slate-200">
+                    <strong className="text-amber-700 font-semibold">Explicación:</strong> {correctOption?.explanation}
                   </p>
                 </div>
               );
@@ -345,7 +345,7 @@ export default function PrePostTest() {
             {testType === "pre" && (
               <button
                 onClick={handleSwitchToPost}
-                className="px-6 py-3 bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-xs rounded-xl shadow-md transition-transform hover:scale-105"
+                className="px-6 py-3 bg-emerald-700 hover:bg-emerald-600 text-white font-semibold text-xs rounded-xl shadow-xs transition-all"
               >
                 Pasar a la Evaluación Final (Post-Test)
               </button>
@@ -353,7 +353,7 @@ export default function PrePostTest() {
 
             <button
               onClick={handleRestart}
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#F0EAE1] hover:bg-[#E7DECE] text-stone-800 font-bold text-xs rounded-xl transition-colors"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs rounded-xl transition-colors"
             >
               <RotateCcw className="w-4 h-4" />
               <span>Realizar nuevamente este test</span>
