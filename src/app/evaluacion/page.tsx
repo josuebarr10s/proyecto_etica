@@ -10,6 +10,7 @@ import {
   ShieldCheck
 } from "lucide-react";
 import { sanitizeInput } from "@/lib/utils";
+import { saveCommunityFeedbackInDb } from "@/lib/db";
 
 export default function EvaluacionPage() {
   const [feedbackCategory, setFeedbackCategory] = useState("estudiante");
@@ -17,11 +18,18 @@ export default function EvaluacionPage() {
   const [usefulnessRating, setUsefulnessRating] = useState("5");
   const [feedbackSent, setFeedbackSent] = useState(false);
 
-  const handleSendFeedback = (e: React.FormEvent) => {
+  const handleSendFeedback = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!feedbackText.trim()) return;
 
-    // Persist anonymous feedback to localStorage
+    const cleanComment = sanitizeInput(feedbackText);
+    await saveCommunityFeedbackInDb({
+      category: feedbackCategory,
+      rating: Number(usefulnessRating) || 5,
+      comment: cleanComment,
+    });
+
+    // Persist anonymous feedback to localStorage as backup
     try {
       const existing = localStorage.getItem("conectando_caminos_feedback");
       const list = existing ? JSON.parse(existing) : [];
@@ -29,7 +37,7 @@ export default function EvaluacionPage() {
         id: Date.now(),
         category: feedbackCategory,
         rating: usefulnessRating,
-        comment: sanitizeInput(feedbackText),
+        comment: cleanComment,
         date: new Date().toISOString()
       });
       localStorage.setItem("conectando_caminos_feedback", JSON.stringify(list));

@@ -3,6 +3,11 @@
 import React, { useState, useEffect } from "react";
 import { Experience } from "@/types";
 import { INITIAL_EXPERIENCES } from "@/data/initialExperiences";
+import {
+  fetchExperiences,
+  createExperienceInDb,
+  voteExperienceInDb,
+} from "@/lib/db";
 import ExperienceCard from "@/components/ExperienceCard";
 import NewExperienceModal from "@/components/NewExperienceModal";
 import { 
@@ -19,23 +24,38 @@ export default function ExperienciasPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Load persisted experiences from localStorage if available
+  // Load experiences from Supabase (or localStorage fallback)
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem("conectando_caminos_experiences");
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          setExperiences(parsed);
+    let mounted = true;
+    async function load() {
+      const dbData = await fetchExperiences();
+      if (!mounted) return;
+      if (dbData && dbData.length > 0) {
+        setExperiences(dbData);
+      } else {
+        try {
+          const saved = localStorage.getItem("conectando_caminos_experiences");
+          if (saved) {
+            const parsed = JSON.parse(saved);
+            if (Array.isArray(parsed) && parsed.length > 0) {
+              setExperiences(parsed);
+            }
+          }
+        } catch {
+          // Ignore
         }
       }
-    } catch {
-      // Ignore
     }
+    load();
+    return () => {
+      mounted = false;
+    };
   }, []);
 
-  const handleAddExperience = (newExp: Experience) => {
-    const updated = [newExp, ...experiences];
+  const handleAddExperience = async (newExp: Experience) => {
+    const savedInDb = await createExperienceInDb(newExp);
+    const finalExp = savedInDb || newExp;
+    const updated = [finalExp, ...experiences];
     setExperiences(updated);
     try {
       localStorage.setItem("conectando_caminos_experiences", JSON.stringify(updated));
@@ -44,9 +64,12 @@ export default function ExperienciasPage() {
     }
   };
 
-  const handleVoteUseful = (id: string) => {
+  const handleVoteUseful = async (id: string) => {
+    const newCount = await voteExperienceInDb(id);
     const updated = experiences.map((exp) => 
-      exp.id === id ? { ...exp, usefulVotes: exp.usefulVotes + 1 } : exp
+      exp.id === id
+        ? { ...exp, usefulVotes: newCount !== null ? newCount : exp.usefulVotes + 1 }
+        : exp
     );
     setExperiences(updated);
     try {

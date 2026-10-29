@@ -1,7 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { TestQuestion } from "@/types";
 import { TEST_QUESTIONS } from "@/data/testQuestions";
+import { fetchTestQuestions, saveTestEvaluationInDb } from "@/lib/db";
 import { 
   CheckCircle2, 
   XCircle, 
@@ -15,6 +17,7 @@ import {
 import confetti from "canvas-confetti";
 
 export default function PrePostTest() {
+  const [questions, setQuestions] = useState<TestQuestion[]>(TEST_QUESTIONS);
   const [testType, setTestType] = useState<"pre" | "post">("pre");
   const [studentName, setStudentName] = useState("");
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -25,7 +28,19 @@ export default function PrePostTest() {
   const [preScore, setPreScore] = useState<number | null>(null);
   const [postScore, setPostScore] = useState<number | null>(null);
 
-  const question = TEST_QUESTIONS[currentQuestionIndex];
+  useEffect(() => {
+    let mounted = true;
+    fetchTestQuestions().then((data) => {
+      if (mounted && data && data.length > 0) {
+        setQuestions(data);
+      }
+    });
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  const question = questions[currentQuestionIndex] || TEST_QUESTIONS[0];
 
   const handleSelectOption = (optionId: string) => {
     if (isSubmitted) return;
@@ -36,7 +51,7 @@ export default function PrePostTest() {
   };
 
   const handleNext = () => {
-    if (currentQuestionIndex < TEST_QUESTIONS.length - 1) {
+    if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     }
   };
@@ -49,7 +64,7 @@ export default function PrePostTest() {
 
   const calculateScore = () => {
     let score = 0;
-    TEST_QUESTIONS.forEach((q) => {
+    questions.forEach((q) => {
       const selectedId = selectedAnswers[q.id];
       const correctOption = q.options.find((o) => o.isCorrect);
       if (selectedId === correctOption?.id) {
@@ -59,9 +74,16 @@ export default function PrePostTest() {
     return score;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const finalScore = calculateScore();
     setIsSubmitted(true);
+
+    await saveTestEvaluationInDb({
+      studentName,
+      testType,
+      score: finalScore,
+      totalQuestions: questions.length,
+    });
 
     if (testType === "pre") {
       setPreScore(finalScore);
@@ -164,7 +186,7 @@ export default function PrePostTest() {
             />
           </div>
           <div className="text-xs text-slate-500 font-semibold">
-            Pregunta <strong className="text-slate-900">{currentQuestionIndex + 1}</strong> de <strong className="text-slate-900">{TEST_QUESTIONS.length}</strong>
+            Pregunta <strong className="text-slate-900">{currentQuestionIndex + 1}</strong> de <strong className="text-slate-900">{questions.length}</strong>
           </div>
         </div>
       )}
@@ -217,7 +239,7 @@ export default function PrePostTest() {
               Anterior
             </button>
 
-            {currentQuestionIndex < TEST_QUESTIONS.length - 1 ? (
+            {currentQuestionIndex < questions.length - 1 ? (
               <button
                 onClick={handleNext}
                 disabled={!selectedAnswers[question.id]}
@@ -229,7 +251,7 @@ export default function PrePostTest() {
             ) : (
               <button
                 onClick={handleSubmit}
-                disabled={Object.keys(selectedAnswers).length < TEST_QUESTIONS.length}
+                disabled={Object.keys(selectedAnswers).length < questions.length}
                 className="inline-flex items-center gap-2 px-6 py-2.5 bg-emerald-700 hover:bg-emerald-600 disabled:opacity-40 text-white font-semibold rounded-xl text-xs shadow-xs transition-all"
               >
                 <FileCheck className="w-4 h-4" />
@@ -255,10 +277,10 @@ export default function PrePostTest() {
             <div className="inline-block p-4 bg-white border border-slate-200 rounded-2xl shadow-xs">
               <span className="text-xs text-slate-400 uppercase tracking-widest font-semibold block">Puntaje Obtenido</span>
               <span className="text-4xl font-extrabold text-amber-600">
-                {currentScore} / {TEST_QUESTIONS.length}
+                {currentScore} / {questions.length}
               </span>
               <span className="text-xs text-slate-500 font-medium block mt-1">
-                ({(currentScore / TEST_QUESTIONS.length) * 100}% de aciertos)
+                ({Math.round((currentScore / questions.length) * 100)}% de aciertos)
               </span>
             </div>
 
@@ -309,7 +331,7 @@ export default function PrePostTest() {
               <span>Revisión Detallada de Preguntas y Respuestas:</span>
             </h4>
 
-            {TEST_QUESTIONS.map((q) => {
+            {questions.map((q) => {
               const selectedId = selectedAnswers[q.id];
               const selectedOption = q.options.find((o) => o.id === selectedId);
               const correctOption = q.options.find((o) => o.isCorrect);

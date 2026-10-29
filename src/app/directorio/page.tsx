@@ -1,7 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { DirectoryItem } from "@/types";
 import { DIRECTORY_DATA } from "@/data/directoryData";
+import { fetchDirectoryItems } from "@/lib/db";
 import { 
   MapPin, 
   PhoneCall, 
@@ -13,10 +15,23 @@ import {
 } from "lucide-react";
 
 export default function DirectorioPage() {
+  const [items, setItems] = useState<DirectoryItem[]>(DIRECTORY_DATA);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedType, setSelectedType] = useState<string>("all");
 
-  const filteredItems = DIRECTORY_DATA.filter((item) => {
+  useEffect(() => {
+    let mounted = true;
+    fetchDirectoryItems().then((data) => {
+      if (mounted && data && data.length > 0) {
+        setItems(data);
+      }
+    });
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  const filteredItems = items.filter((item) => {
     const matchesType = selectedType === "all" || item.type === selectedType;
     const query = searchQuery.toLowerCase();
     const matchesSearch = 

@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { Course } from "@/types";
 import { INITIAL_COURSES } from "@/data/initialCourses";
+import { fetchCourses, createCourseInDb } from "@/lib/db";
 import CourseCard from "@/components/CourseCard";
 import NewCourseModal from "@/components/NewCourseModal";
 import { 
@@ -18,23 +19,38 @@ export default function CursosPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Load persisted courses from localStorage if available
+  // Load courses from Supabase (or localStorage fallback)
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem("conectando_caminos_courses");
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          setCourses(parsed);
+    let mounted = true;
+    async function load() {
+      const dbCourses = await fetchCourses();
+      if (!mounted) return;
+      if (dbCourses && dbCourses.length > 0) {
+        setCourses(dbCourses);
+      } else {
+        try {
+          const saved = localStorage.getItem("conectando_caminos_courses");
+          if (saved) {
+            const parsed = JSON.parse(saved);
+            if (Array.isArray(parsed) && parsed.length > 0) {
+              setCourses(parsed);
+            }
+          }
+        } catch {
+          // Ignore
         }
       }
-    } catch {
-      // Ignore
     }
+    load();
+    return () => {
+      mounted = false;
+    };
   }, []);
 
-  const handleAddCourse = (newCourse: Course) => {
-    const updated = [newCourse, ...courses];
+  const handleAddCourse = async (newCourse: Course) => {
+    const savedInDb = await createCourseInDb(newCourse);
+    const finalCourse = savedInDb || newCourse;
+    const updated = [finalCourse, ...courses];
     setCourses(updated);
     try {
       localStorage.setItem("conectando_caminos_courses", JSON.stringify(updated));

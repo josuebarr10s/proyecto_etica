@@ -1,7 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { PhishingScenario } from "@/types";
 import { PHISHING_SCENARIOS } from "@/data/phishingScenarios";
+import { fetchPhishingScenarios, savePhishingAttemptInDb } from "@/lib/db";
 import { 
   ShieldCheck, 
   ShieldAlert, 
@@ -18,23 +20,42 @@ import {
 } from "lucide-react";
 
 export default function PhishingSimulator() {
+  const [scenarios, setScenarios] = useState<PhishingScenario[]>(PHISHING_SCENARIOS);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [userAnswer, setUserAnswer] = useState<boolean | null>(null);
   const [score, setScore] = useState(0);
   const [completed, setCompleted] = useState(false);
 
-  const scenario = PHISHING_SCENARIOS[currentIndex];
+  useEffect(() => {
+    let mounted = true;
+    fetchPhishingScenarios().then((data) => {
+      if (mounted && data && data.length > 0) {
+        setScenarios(data);
+      }
+    });
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  const scenario = scenarios[currentIndex] || PHISHING_SCENARIOS[0];
 
   const handleAnswer = (answer: boolean) => {
     if (userAnswer !== null) return;
     setUserAnswer(answer);
-    if (answer === scenario.isScam) {
+    const isCorrect = answer === scenario.isScam;
+    if (isCorrect) {
       setScore((prev) => prev + 1);
     }
+    savePhishingAttemptInDb({
+      scenarioId: scenario.id,
+      selectedIsScam: answer,
+      isCorrect,
+    });
   };
 
   const handleNext = () => {
-    if (currentIndex < PHISHING_SCENARIOS.length - 1) {
+    if (currentIndex < scenarios.length - 1) {
       setCurrentIndex((prev) => prev + 1);
       setUserAnswer(null);
     } else {
@@ -86,7 +107,7 @@ export default function PhishingSimulator() {
 
         {!completed && (
           <div className="text-xs font-semibold px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-600">
-            Caso {currentIndex + 1} de {PHISHING_SCENARIOS.length}
+            Caso {currentIndex + 1} de {scenarios.length}
           </div>
         )}
       </div>
@@ -99,7 +120,7 @@ export default function PhishingSimulator() {
           </div>
           <h4 className="text-2xl font-bold text-slate-900">¡Simulación Completada!</h4>
           <p className="text-base text-slate-600 max-w-md mx-auto">
-            Identificaste correctamente <strong className="text-amber-600">{score}</strong> de <strong className="text-slate-900">{PHISHING_SCENARIOS.length}</strong> casos presentados.
+            Identificaste correctamente <strong className="text-amber-600">{score}</strong> de <strong className="text-slate-900">{scenarios.length}</strong> casos presentados.
           </p>
           
           <div className="p-5 bg-slate-50 border border-slate-200 rounded-2xl max-w-lg mx-auto text-xs text-slate-700 text-left space-y-2">
@@ -211,7 +232,7 @@ export default function PhishingSimulator() {
                     onClick={handleNext}
                     className="inline-flex items-center gap-2 px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs rounded-xl shadow-xs transition-all"
                   >
-                    <span>{currentIndex < PHISHING_SCENARIOS.length - 1 ? "Siguiente Caso" : "Ver Resultados"}</span>
+                    <span>{currentIndex < scenarios.length - 1 ? "Siguiente Caso" : "Ver Resultados"}</span>
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>
